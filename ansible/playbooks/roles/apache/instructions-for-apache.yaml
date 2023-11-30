@@ -11,22 +11,33 @@
         path: /etc/site-for-apache.txt
         state: touch
 
-    - name: install needed packages
-      ansible.builtin.apt:
-        name: cowsay lolcat
-        state: present
-        update_cache: yes
-
-    - name: install cowsay
+    - name: Install Ruby
       ansible.builtin.apt:
         name:
-         - cowsay
+         - ruby
+         - ruby-dev
         state: present
         update_cache: yes
+   
+    - name: Install needed packages with loop (lolcat and cowsay)
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - lolcat
+        - cowsay
 
     - name: install lolcat
       ansible.builtin.shell:
-        cmd: git clone https://github.com/busyloop/lolcat.git && cd lolcat && gem install lolcat && cd .. && rm -rf lolcat
+       cmd: >
+        if [ ! -d "lolcat" ]; then
+          git clone https://github.com/busyloop/lolcat.git &&
+          cd lolcat &&
+          gem install lolcat &&
+          cd .. &&
+          rm -rf lolcat;
+        fi
 
     - name: run cowsay
       ansible.builtin.shell:
