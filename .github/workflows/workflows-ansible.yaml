@@ -1,4 +1,4 @@
-namei: Ansible workflow
+name: Ansible workflow
 
 on:
   push:
