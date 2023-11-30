@@ -97,3 +97,8 @@ in the ansible file in vm:
 
 ansible -m command -a "ip a" ansible or ls or ip a vm will display the information we want to access from the ansible container
 - thanks to the configuration in the real ansible file, root uses ansible/etc/hosts
+
+
+PATH=$PATH:/usr/games
+cowsay -f dragon "coucou DEVOPS!" | lolcat -F 0.3 -S 5
+![cowsay](ansible/src/dragon.jpg)
