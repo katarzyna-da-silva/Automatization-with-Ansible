@@ -1,0 +1,19 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    silent: true
+
+  install-apache:
+    desc: install apache with ansible
+    aliases: 
+      - ia
+    cmds: 
+      - ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/apache-install.yaml

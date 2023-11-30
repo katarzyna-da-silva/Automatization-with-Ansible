@@ -1,0 +1,6 @@
+---
+- name: install Apache2
+  hosts: all
+  become: true
+  roles:
+    - ../roles/apache-install

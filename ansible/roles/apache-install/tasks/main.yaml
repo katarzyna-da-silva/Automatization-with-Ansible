@@ -1,0 +1,32 @@
+--- ## taches
+
+- name: Install all
+  ansible.builtin.apt:
+    name:
+      - apache2
+      - ruby
+      - ruby-dev
+      - lolcat
+      - cowsay
+    state: present
+    update_cache: yes
+
+- name: Start Apache2 service
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: Create a custom homepage
+  template:
+    src:  index.html.j2
+    dest: /var/www/html/index.html
+
+- name: create site-for-apache.txt file
+  ansible.builtin.file:
+    path: /etc/site-for-apache.txt
+    state: touch
+
+- name: run cowsay
+  ansible.builtin.shell:
+    cmd: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5

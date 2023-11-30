@@ -1,8 +1,0 @@
----
-- name: Main playbook
-  hosts: all
-  gather_facts: true
-  become: true
-
-  roles:
-    - apache/instructions-for-apache.yaml
