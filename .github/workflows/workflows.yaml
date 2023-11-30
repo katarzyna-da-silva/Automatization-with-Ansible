@@ -16,8 +16,4 @@ jobs:
 
     - name: Run Ansible playbook
       run: ansible-playbook -i ../../inventory/dev.yaml ansible/playbooks/roles/apache/instructions-for-apache.yaml
-    - name: Set up LXD
-      run: |
-          sudo apt-get update
-          sudo apt-get install -y lxd
-          sudo lxd init --auto
+    
