@@ -1,23 +1,25 @@
+---
 - name: Include tasks for installing and configuring Apache2
-  import_tasks: tasks/install_apache.yaml
-  remote_user: root
+  hosts: all
+  become: true
   roles:
     - apache
+
   tasks:
-  - name: create site-for-apache.txt file
-    ansible.builtin.file:
-      path: /etc/dite-for-apache.txt
-      state: touch
+    - name: create site-for-apache.txt file
+      ansible.builtin.file:
+        path: /etc/dite-for-apache.txt
+        state: touch
 
-  - name: install needed packages
-    ansible.builtin.apt:
-      name: cowsay lolcat
-      state: present
-      update_cache: yes
+    - name: install needed packages
+      ansible.builtin.apt:
+        name: cowsay lolcat
+        state: present
+        update_cache: yes
 
-  - name: run cowsay
-    ansible.builtin.shell:
-      cmd: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5
+    - name: run cowsay
+      ansible.builtin.shell:
+        cmd: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5
 
 
 
