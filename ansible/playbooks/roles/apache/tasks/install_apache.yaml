@@ -24,4 +24,14 @@
       src: index.html.j2
       dest: /var/www/html/index.html
       notify:
-    - Restart Apache
+    - Restart Apach
+      
+      - name: Install cowsay and lolcat
+      apt:
+        name:
+          - cowsay
+          - lolcat
+        state: present
+
+    - name: Run cowsay with color
+      shell: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5e
