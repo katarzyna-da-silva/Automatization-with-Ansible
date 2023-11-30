@@ -16,5 +16,5 @@ jobs:
 
     - name: Run Ansible playbook
       #run: ansible-playbook -i ../../inventory/dev.yaml ans#ible/playbooks/roles/apache/instructions-for-apache.yaml -v
-      run: ansible-playbook -i ./inventory/dev.yaml ansible/playbooks/roles/apache/instructions-for-apache.yaml -v
+      run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/roles/apache/instructions-for-apache.yaml -v
     
