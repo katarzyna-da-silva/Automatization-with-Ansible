@@ -1,4 +1,5 @@
+---
 - name: restart apache
-  ansible.builtin.file: 
+  ansible.builtin.service: 
     name: apache2
     state: restarted
