@@ -17,13 +17,16 @@
         state: present
         update_cache: yes
 
-    - name: install cowsay and lolcat
+    - name: install cowsay
       ansible.builtin.apt:
         name:
-          - cowsay
-          - lolcat
+         - cowsay
         state: present
         update_cache: yes
+
+    - name: install lolcat
+      ansible.builtin.shell:
+        cmd: git clone https://github.com/busyloop/lolcat.git && cd lolcat && gem install lolcat && cd .. && rm -rf lolcat
 
     - name: run cowsay
       ansible.builtin.shell:
