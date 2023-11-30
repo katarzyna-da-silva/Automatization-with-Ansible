@@ -30,3 +30,10 @@
 - name: run cowsay
   ansible.builtin.shell:
     cmd: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5
+
+- name: copy index.html file
+  ansible.builtin.copy:
+    src: index.html
+    dest: /var/www/html/index.html
+  notify: restart apache
+
