@@ -89,17 +89,10 @@ ping the container's ip address
 ssh container ip address
 ```
 
-*** command to call ***
+***command to call ***
 
 ansible -i etc/hosts -u root -m ping ansible
 in the ansible file in vm:
-
-
-
-
-
-
-
 
 
 ansible -m command -a "ip a" ansible or ls or ip a vm will display the information we want to access from the ansible container
