@@ -21,12 +21,12 @@
 
     - name: Create a custom homepage
       template:
-      src: index.html.j2
-      dest: /var/www/html/index.html
-      notify:
-    - Restart Apach
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        notify:
+          - Restart Apach
       
-      - name: Install cowsay and lolcat
+    - name: Install cowsay and lolcat
       apt:
         name:
           - cowsay
