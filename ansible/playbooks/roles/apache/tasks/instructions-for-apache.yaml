@@ -1,0 +1,2 @@
+- name: Include tasks for installing and configuring Apache2
+  import_tasks: tasks/install_apache.yaml
