@@ -23,10 +23,15 @@
     dest: /var/www/html/index.html
   notify: restart apache
 
-- name: create site-for-apache.txt file
-  ansible.builtin.file:
-    path: /etc/site-for-apache.txt
-    state: touch
+- name: Create folder
+  ansible.builtin.file: 
+    path: "/{{folder_one}}"
+    state: directory
+  
+- name: Copy Template File
+  copy:
+    src: templates/hello.txt.j2
+    dest: "/{{folder_one}}/{{file_one}}"
 
 - name: run cowsay
   ansible.builtin.shell:
