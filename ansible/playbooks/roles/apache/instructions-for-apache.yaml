@@ -3,12 +3,12 @@
   hosts: all
   become: true
   roles:
-    - apache
+    - apache/tasks/install_apache.yaml
 
   tasks:
     - name: create site-for-apache.txt file
       ansible.builtin.file:
-        path: /etc/dite-for-apache.txt
+        path: /etc/site-for-apache.txt
         state: touch
 
     - name: install needed packages
