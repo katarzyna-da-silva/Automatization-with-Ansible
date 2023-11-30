@@ -17,6 +17,14 @@
         state: present
         update_cache: yes
 
+    - name: install cowsay and lolcat
+      ansible.builtin.apt:
+        name:
+          - cowsay
+          - lolcat
+        state: present
+        update_cache: yes
+
     - name: run cowsay
       ansible.builtin.shell:
         cmd: cowsay -f dragon "Hello, DEVOPS!" | lolcat -F 0.3 -S 5
