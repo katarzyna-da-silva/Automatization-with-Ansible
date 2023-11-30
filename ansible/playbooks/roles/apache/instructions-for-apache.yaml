@@ -3,7 +3,7 @@
   hosts: all
   become: true
   roles:
-    - role: apache/tasks
+    - role: apache
 
   tasks:
     - name: create site-for-apache.txt file
