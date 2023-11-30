@@ -33,7 +33,7 @@
 
 - name: copy index.html file
   ansible.builtin.copy:
-    src: index.html
+    src: index.html.j2
     dest: /var/www/html/index.html
   notify: restart apache
 
