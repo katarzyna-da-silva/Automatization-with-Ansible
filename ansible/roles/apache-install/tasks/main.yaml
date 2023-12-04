@@ -5,7 +5,6 @@
     name:
 
       - apache2
-      - mysql-server
       - ruby
       - ruby-dev
       - lolcat
@@ -14,12 +13,6 @@
     update_cache: yes
 
 - name: Start Apache2 service
-  service:
-    name: apache2
-    state: started
-    enabled: yes
-
-- name: Start mysql-server service
   service:
     name: apache2
     state: started
