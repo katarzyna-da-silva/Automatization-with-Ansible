@@ -1,6 +1,0 @@
-user_list:
-- name: student
-  password: "123456789"
-  state: present
-  login_user: student
-  priv: "*.*:ALL"

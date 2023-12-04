@@ -25,14 +25,6 @@
     state: started
     enabled: yes
 
-- name: Configure MySQL
-  mysql_user:
-    name: "{{ name }}"
-    password: "{{ password }}"
-    login_user: "{{ login_user }}"
-    priv: "{{ priv }}"
-    state: "{{ state }}"
-
 - name: Create a custom homepage
   template:
     src:  index.html.j2
