@@ -7,19 +7,64 @@ on:
         - main
 
 jobs:
-  deploy:
+  deploy_to_dev:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Run Ansible playbook
-      run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/apache-install.yaml
-    
-    - name: Run staging environment
-        run: ansible-playbook -i ansible/inventory/staging.yaml ansible/playbooks/staging.yaml
-        # Dodaj warunek, który uruchomi tylko gdy poprzedni playbook zakończy się sukcesem
-        if: success()
+      - name: Set up Python
+         uses: actions/setup-python@v2
+         with:
+            python-version: '3.x'
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Run Ansible playbook
+        run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/apache-install.yaml
+        continue-on-error: true
+
+      - name: run test dev env
+        run: |
+          echo "test dev environment  ok"
+ 
+  deploy_to_staging:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+         uses: actions/setup-python@v2
+         with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Run Ansible playbook for staging if dev succeeded
+        if: ${{ success() }}
+        run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/staging.yaml
+        echo: " running staging environment for test is ok"
+
+      -name: run test staging env 
+        run: |
+          echo: "test env staging ok"
+
+      - name: Save Apache logs as artifact
+        if: success() 
+        run: |
+           mkdir -p logs-for-apache-artifact
+           cp /var/log/apache2/* logs-for-apache-artifact/
+        - uses: actions/upload-artifact@v2
+          with:
+            name: apache_logs
+            path: logs-for-apache-artifact
 
