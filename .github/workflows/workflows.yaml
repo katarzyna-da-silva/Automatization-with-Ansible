@@ -53,9 +53,8 @@ jobs:
         if: ${{ success() }}
         run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/staging.yaml
         
-      - name: run staging env 
-        run: |
-          echo: "test env staging ok"
+      - name: Run echo command
+        run: echo "test env staging ok"
 
       - name: Save Apache logs as artifact
         if: success() 
