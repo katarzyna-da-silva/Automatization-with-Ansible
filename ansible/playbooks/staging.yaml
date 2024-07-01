@@ -8,7 +8,8 @@
   tasks:
     - name: Set custom staging configuration
       template:
-        src: staging_config.conf.j2
+        src:  /home/z390/Automatization-with-Ansible/ansible/roles/apache-install/templates/staging_config.conf.j2
         dest: /etc/apache2/sites-available/staging_config.conf
       notify: restart apache
+
 
