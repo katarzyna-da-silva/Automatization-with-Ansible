@@ -1,5 +1,0 @@
-apache:
-  hosts:
-    serveur-web:
-      ansible_host: 10.42.42.60
-      ansible_user: root

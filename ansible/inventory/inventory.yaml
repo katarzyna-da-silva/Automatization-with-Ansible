@@ -1,0 +1,5 @@
+apache:
+  hosts:
+    ansible-instance:
+      ansible_host: 15.188.53.97
+      ansible_user: ubuntu
