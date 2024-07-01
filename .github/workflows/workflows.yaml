@@ -17,3 +17,9 @@ jobs:
     - name: Run Ansible playbook
       run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/apache-install.yaml
     
+    - name: Run staging environment
+        run: ansible-playbook -i ansible/inventory/staging.yaml ansible/playbooks/staging.yaml
+        # Dodaj warunek, który uruchomi tylko gdy poprzedni playbook zakończy się sukcesem
+        if: success()
+
+

@@ -1,0 +1,14 @@
+---
+- name: Install and configure Apache2 on production
+  hosts: all
+  become: true
+  roles:
+    - ../roles/apache-install
+
+  tasks:
+    - name: Set custom production configuration
+      template:
+        src: production_config.conf.j2
+        dest: /etc/apache2/sites-available/production_config.conf
+      notify: restart apache
+

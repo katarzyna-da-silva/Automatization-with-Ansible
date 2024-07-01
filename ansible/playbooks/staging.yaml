@@ -1,0 +1,14 @@
+---
+- name: Install and configure Apache2 on staging
+  hosts: all
+  become: true
+  roles:
+    - ../roles/apache-install
+
+  tasks:
+    - name: Set custom staging configuration
+      template:
+        src: staging_config.conf.j2
+        dest: /etc/apache2/sites-available/staging_config.conf
+      notify: restart apache
+
