@@ -52,9 +52,8 @@ jobs:
       - name: Run Ansible playbook for staging if dev succeeded
         if: ${{ success() }}
         run: ansible-playbook -i ansible/inventory/dev.yaml ansible/playbooks/staging.yaml
-        echo: " running staging environment for test is ok"
-
-      -name: run test staging env 
+        
+      - name: run staging env 
         run: |
           echo: "test env staging ok"
 
@@ -63,8 +62,8 @@ jobs:
         run: |
            mkdir -p logs-for-apache-artifact
            cp /var/log/apache2/* logs-for-apache-artifact/
-        - uses: actions/upload-artifact@v2
-          with:
-            name: apache_logs
-            path: logs-for-apache-artifact
+      - uses: actions/upload-artifact@v2
+        with:
+          name: apache_logs
+          path: logs-for-apache-artifact
 
