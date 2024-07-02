@@ -1,9 +1,26 @@
 image:
   repository: katarzynadasilva/automatization-with-ansible
   tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+labels:
+  app: myapp-staging
+  environment: staging
+
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8089
 
 command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/staging.yaml && tail -f /dev/null"]
 
-labels:
-  app: automatization-with-ansible
-  environment: staging
+resources:
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi

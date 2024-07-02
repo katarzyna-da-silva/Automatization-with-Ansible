@@ -16,7 +16,6 @@ service:
 
 command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
 
-
 resources:
   limits:
     cpu: 200m
