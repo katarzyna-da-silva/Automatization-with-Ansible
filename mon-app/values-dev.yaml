@@ -1,9 +1,28 @@
 image:
   repository: katarzynadasilva/automatization-with-ansible
   tag: latest
+  pullPolicy: IfNotPresent
 
-command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/dev/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
+replicaCount: 1
 
 labels:
-  app: automatization-with-ansible
-  environment: dev
+  app: myapp-dev
+  environment: dev  # Make sure this matches the environment you're deploying to
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8089
+
+command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
+
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi
+
+

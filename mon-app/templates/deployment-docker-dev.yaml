@@ -1,25 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: automatization-with-ansible-dev
-  namespace: dev
-  annotations:
-    description: "Deployment dla {{ .Release.Name }} w namespace {{ .Release.Namespace }}"
-    meta.helm.sh/release-name: myapp-dev
-    meta.helm.sh/release-namespace: dev
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Values.labels.app }}
+    environment: {{ .Values.labels.environment }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: automatization-with-ansible
-      environment: dev
+      app: {{ .Values.labels.app }}
+      environment: {{ .Values.labels.environment }}
   template:
     metadata:
       labels:
-        app: automatization-with-ansible
-        environment: dev
+        app: {{ .Values.labels.app }}
+        environment: {{ .Values.labels.environment }}
     spec:
       containers:
-        - name: automatization-with-ansible
-          image: katarzynadasilva/automatization-with-ansible:latest
-          command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/dev/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 8088
+        command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}

@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: automatization-with-ansible-service
-  namespace: dev
+  name: {{ include "myapp.fullname" . }}
   labels:
-    app.kubernetes.io/name: myapp-dev
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: {{ include "myapp.name" . }}
+    helm.sh/chart: {{ include "myapp.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
-    meta.helm.sh/release-name: myapp-dev
-    meta.helm.sh/release-namespace: dev
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
-  selector:
-    app: automatization-with-ansible
-    environment: dev
+  type: {{ .Values.service.type }}
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: NodePort
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "myapp.name" . }}
