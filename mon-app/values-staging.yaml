@@ -1,0 +1,9 @@
+image:
+  repository: katarzynadasilva/automatization-with-ansible
+  tag: latest
+
+command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/staging.yaml && tail -f /dev/null"]
+
+labels:
+  app: automatization-with-ansible
+  environment: staging

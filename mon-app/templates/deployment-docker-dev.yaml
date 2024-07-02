@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: automatization-with-ansible-dev
+  namespace: dev
+  annotations:
+    description: "Deployment dla {{ .Release.Name }} w namespace {{ .Release.Namespace }}"
+    meta.helm.sh/release-name: myapp-dev
+    meta.helm.sh/release-namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: automatization-with-ansible
+      environment: dev
+  template:
+    metadata:
+      labels:
+        app: automatization-with-ansible
+        environment: dev
+    spec:
+      containers:
+        - name: automatization-with-ansible
+          image: katarzynadasilva/automatization-with-ansible:latest
+          command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/dev/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
