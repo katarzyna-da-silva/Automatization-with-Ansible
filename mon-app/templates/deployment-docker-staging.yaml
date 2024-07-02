@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: automatization-with-ansible-staging
+  namespace: staging
+  annotations:
+    description: "Deployment dla {{ .Release.Name }} w namespace {{ .Release.Namespace }}"
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.app }}
+      environment: {{ .Values.labels.environment }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.labels.app }}
+        environment: {{ .Values.labels.environment }}
+    spec:
+      containers:
+        - name: myapp-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+          command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/staging.yaml && tail -f /dev/null"]
