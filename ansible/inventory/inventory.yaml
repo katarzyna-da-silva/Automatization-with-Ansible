@@ -1,5 +1,10 @@
-apache:
+all:
   hosts:
-    ansible-instance:
-      ansible_host: 15.188.53.97
-      ansible_user: ubuntu
+    minikube:
+      ansible_host: 192.168.49.2
+      ansible_user: docker
+
+
+
+
+
