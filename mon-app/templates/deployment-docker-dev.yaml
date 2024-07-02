@@ -21,7 +21,7 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
-        - containerPort: 8088
+        - containerPort: 8080
         command: ["sh", "-c", "ansible-playbook -i /home/z390/Automatization-with-Ansible/ansible/inventory/inventory.yaml ./ansible/playbooks/apache-install.yaml && tail -f /dev/null"]
         resources:
           limits:
